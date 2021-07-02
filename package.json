@@ -1,0 +1,28 @@
+{
+  "name": "airtools",
+  "version": "1.0.2",
+  "description": "AirHU CLI tools",
+  "author": "svqzd",
+  "license": "MIT",
+  "private": false,
+  "repository": "https://github.com/AirrHU/AirTools",
+  "keywords": [
+    "cli",
+    "javascript",
+    "github",
+    "express",
+    "expressjs",
+    "npm",
+    "node",
+    "nodejs",
+    "generator",
+    "gen"
+  ],
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "inquirer": "^8.1.1"
+  }
+}
