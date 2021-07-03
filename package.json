@@ -5,7 +5,10 @@
   "author": "svqzd",
   "license": "MIT",
   "private": false,
-  "repository": "https://github.com/AirrHU/AirTools",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AirrHU/AirTools.git"
+  },
   "keywords": [
     "cli",
     "javascript",
@@ -20,11 +23,30 @@
   ],
   "main": "src/main.js",
   "scripts": {
-    "start": "node src/main.js"
+    "start": "node dist/main.js",
+    "watch": "tsc -w",
+    "build": "tsc"
   },
   "dependencies": {
     "@supercharge/strings": "^1.18.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "inquirer": "^8.1.1",
     "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.2",
+    "@types/node": "^16.0.0",
+    "@types/valid-url": "^1.0.3",
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.9",
+    "typescript": "^4.3.5"
+  },
+  "bugs": {
+    "url": "https://github.com/AirrHU/AirTools/issues"
+  },
+  "homepage": "https://github.com/AirrHU/AirTools#readme",
+  "directories": {
+    "test": "test"
   }
 }

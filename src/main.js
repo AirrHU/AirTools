@@ -4,12 +4,23 @@ const { prompt } = require('inquirer')
 const { readdirSync } = require('fs')
 const { exec } = require('child_process')
 const execute = require('./utils/exec/shell')
-const commit = require('./utils/git/commit')
-const push = require('./utils/git/push')
-const pull = require('./utils/git/pull')
+const { commit } = require('./utils/git/commit')
+const { push } = require('./utils/git/push')
+const { pull } = require('./utils/git/pull')
+const { Manager } = require('./Manager')
+
+// import { prompt } from 'inquirer'
+// import { readdirSync } from 'fs'
+// import { exec } from 'child_process'
+// import execute from './utils/exec/shell'
+// import commit from './utils/git/commit'
+// import push from './utils/git/push'
+// import pull from './utils/git/pull'
+// import { Manager } from './Manager'
+// import { getKeyValue } from 'get-key-value'
 
 const _choices = {
-  'Generate a project/file': 'gen',
+  'Generate a project/file\n': 'gen',
   GitHub: 'gh',
   'Execute shell command (not root!)': 'exec',
   Quit: 'exit',
@@ -22,19 +33,16 @@ const _ghActions = {
   'Initialize Git repository in current folder': 'init',
 }
 
-const menu = [
-  {
-    type: 'list',
-    name: 'category',
-    message: 'Select a category!',
-    choices: [
-      'GitHub',
-      'Execute shell command (not root!)',
-      'Generate a project/file\n',
-      'Quit',
-    ],
-  },
-]
+const languages = {
+  JavaScript: 'js',
+  TypeScript: 'ts',
+  'Python (coming soon..)': 'py',
+}
+
+const packageManagers = {
+  NPM: 'npm',
+  'Yarn (recommended)': 'yarn',
+}
 
 try {
   prompt([
@@ -51,8 +59,6 @@ try {
     },
   ]).then(({ category }) => {
     const choice = _choices[category]
-    console.log(choice)
-
     switch (choice) {
       case 'gh':
         prompt([
@@ -145,6 +151,33 @@ try {
             default:
               return console.log('🧐 Method not implemented yet.')
           }
+        })
+        break
+
+      case 'gen':
+        prompt([
+          {
+            type: 'input',
+            name: 'name',
+            message: 'Enter your project name',
+          },
+          {
+            type: 'list',
+            name: 'language',
+            message: 'Choose the language you want to write your project in',
+            choices: ['JavaScript', 'TypeScript', 'Python (coming soon..)'],
+          },
+          {
+            type: 'list',
+            name: 'pkgmanager',
+            message: 'Select the package manager you want to use!',
+            choices: ['NPM', 'Yarn (recommended)'],
+          },
+        ]).then(({ language, name, pkgmanager }) => {
+          const _language = languages[language]
+          const _pkgmanager = packageManagers[pkgmanager]
+
+          new Manager().init(name, _language, _pkgmanager)
         })
         break
 

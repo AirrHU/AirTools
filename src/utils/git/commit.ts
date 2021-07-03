@@ -1,7 +1,8 @@
-const util = require('util')
+import { PromptModule } from 'inquirer'
+import util from 'util'
 const exec = util.promisify(require('child_process').exec)
 
-module.exports = (msg, prompt) => {
+export const commit = (msg: string, prompt: PromptModule) => {
   try {
     if (msg && typeof msg === 'string') {
       prompt([

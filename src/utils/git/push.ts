@@ -1,9 +1,10 @@
-const { readdirSync } = require('fs')
-const { isWebUri } = require('valid-url')
-const util = require('util')
+import { readdirSync } from 'fs'
+import { PromptModule } from 'inquirer'
+import { isWebUri } from 'valid-url'
+import util from 'util'
 const exec = util.promisify(require('child_process').exec)
 
-module.exports = (url, branch, prompt) => {
+export const push = (url: string, branch: string, prompt: PromptModule) => {
   try {
     if (isWebUri(url) && url.endsWith('.git')) {
       prompt([
@@ -19,9 +20,9 @@ module.exports = (url, branch, prompt) => {
           if (_dir.includes('.git')) {
             const dir = readdirSync(`${process.cwd()}/.git/refs/remotes/`)
             if (!dir.includes('origin')) {
-              const { stdout } = exec(`git remote add origin ${url}`)
+              exec(`git remote add origin ${url}`)
             }
-            const { stdout: output } = exec(`git push origin ${branch}`)
+            exec(`git push origin ${branch}`)
 
             // return output && stdout ? { output, stdout } : null
           } else {

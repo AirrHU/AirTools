@@ -1,7 +1,7 @@
-const util = require('util')
+import util from 'util'
 const exec = util.promisify(require('child_process').exec)
 
-module.exports = async (cmd) => {
+export default async (cmd: string) => {
   try {
     const { stdout: output } = await exec(cmd.toString())
     // if (error.includes('Command failed:')) {
@@ -13,5 +13,6 @@ module.exports = async (cmd) => {
     return { output }
   } catch (err) {
     console.error(err.message)
+    return
   }
 }
